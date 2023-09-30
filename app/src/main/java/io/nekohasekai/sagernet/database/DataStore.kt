@@ -115,9 +115,6 @@ object DataStore : OnPreferenceDataStoreChangeListener {
         set(value) {
             saveLocalPort(Key.LOCAL_DNS_PORT, value)
         }
-    var transproxyPort: Int
-        get() = getLocalPort(Key.TRANSPROXY_PORT, 9200)
-        set(value) = saveLocalPort(Key.TRANSPROXY_PORT, value)
 
     fun initGlobal() {
         if (configurationStore.getString(Key.MIXED_PORT) == null) {
@@ -125,9 +122,6 @@ object DataStore : OnPreferenceDataStoreChangeListener {
         }
         if (configurationStore.getString(Key.LOCAL_DNS_PORT) == null) {
             localDNSPort = localDNSPort
-        }
-        if (configurationStore.getString(Key.TRANSPROXY_PORT) == null) {
-            transproxyPort = transproxyPort
         }
     }
 
@@ -151,8 +145,6 @@ object DataStore : OnPreferenceDataStoreChangeListener {
     val persistAcrossReboot by configurationStore.boolean(Key.PERSIST_ACROSS_REBOOT) { false }
 
     var appendHttpProxy by configurationStore.boolean(Key.APPEND_HTTP_PROXY)
-    var requireTransproxy by configurationStore.boolean(Key.REQUIRE_TRANSPROXY)
-    var transproxyMode by configurationStore.stringToInt(Key.TRANSPROXY_MODE)
     var connectionTestURL by configurationStore.string(Key.CONNECTION_TEST_URL) { CONNECTION_TEST_URL }
     var connectionTestConcurrent by configurationStore.int("connectionTestConcurrent") { 5 }
     var alwaysShowAddress by configurationStore.boolean(Key.ALWAYS_SHOW_ADDRESS)
@@ -202,7 +194,6 @@ object DataStore : OnPreferenceDataStoreChangeListener {
     var serverDownloadSpeed by profileCacheStore.stringToInt(Key.SERVER_DOWNLOAD_SPEED)
     var serverStreamReceiveWindow by profileCacheStore.stringToIntIfExists(Key.SERVER_STREAM_RECEIVE_WINDOW)
     var serverConnectionReceiveWindow by profileCacheStore.stringToIntIfExists(Key.SERVER_CONNECTION_RECEIVE_WINDOW)
-    var serverMTU by profileCacheStore.stringToInt(Key.SERVER_MTU) { 1420 }
     var serverDisableMtuDiscovery by profileCacheStore.boolean(Key.SERVER_DISABLE_MTU_DISCOVERY)
     var serverHopInterval by profileCacheStore.stringToInt(Key.SERVER_HOP_INTERVAL) { 10 }
 
@@ -216,7 +207,6 @@ object DataStore : OnPreferenceDataStoreChangeListener {
     var serverCongestionController by profileCacheStore.string(Key.SERVER_CONGESTION_CONTROLLER)
     var serverDisableSNI by profileCacheStore.boolean(Key.SERVER_DISABLE_SNI)
     var serverReduceRTT by profileCacheStore.boolean(Key.SERVER_REDUCE_RTT)
-    var serverFastConnect by profileCacheStore.boolean(Key.SERVER_FAST_CONNECT)
 
     var routeName by profileCacheStore.string(Key.ROUTE_NAME)
     var routeDomain by profileCacheStore.string(Key.ROUTE_DOMAIN)
